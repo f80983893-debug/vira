@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: vira
+    runtime: node
+    plan: starter            # دیسک دائمی فقط روی پلن پولی کار می‌کند
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: DATA_DIR
+        value: /var/data
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_USER
+        value: dev
+      - key: ADMIN_PASS
+        sync: false          # موقع ساخت سرویس خودتان وارد می‌کنید
+    disk:
+      name: vira-data
+      mountPath: /var/data
+      sizeGB: 5
